@@ -26,13 +26,141 @@
     <section class="scripts-grid">
         <!-- Add one card per script/video -->
         <div class="script-card">
-            <h3>Script Title Example 1</h3>
+            <h3>How to make Combat System V1</h3>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" allowfullscreen></iframe>
+                <iframe src="https://youtu.be/Wt95LKb17bM?si=4mkOT8frp9FevONX" allowfullscreen></iframe>
             </div>
-            <p>Description from your video...</p>
-            <pre><code>-- Paste your full script here
-print("Hello from MrAwo69!")</code></pre>
+            <p>Model Link: https://create.roblox.com/store/asset/121797332345085/Combat</p>
+            <pre><code>-- Created by @MrAwo
+-- Subscribe to @MrAwo
+-- Enjoy The Combat System!😉
+
+local MainClient = script.Parent
+local CliqueRemote = MainClient.Clique
+local Block = MainClient.Block
+local animationModule = require(81655000284193)
+local RagdollModule= require(script.ragdoll)
+ 
+local Info = require(MainClient.Infos)
+local Clique = 0
+local CanClique = true
+CliqueRemote.OnServerEvent:Connect(function(plr)
+    if CanClique == true and not plr:FindFirstChild('Stunned') then
+        local char = plr.Character
+        local humanoid = char.Humanoid
+        local hrp:BasePart = char.HumanoidRootPart
+        local animator = animationModule.new(humanoid)
+        local DefWalkSpeed =  game.StarterPlayer.CharacterWalkSpeed
+        CanClique = false
+        Clique +=1
+        spawn(function()
+            local Cc = Clique
+            task.wait(.8)
+            if Clique == Cc then
+                Clique = 0
+            end
+        end)
+        humanoid.WalkSpeed = DefWalkSpeed/3
+        
+        
+        animator:LoadAnimation(script:FindFirstChild('Melee'..Clique)):Play()
+        
+        local Hitbox = true
+        local hits = {}
+        
+        for _, hit in pairs(workspace:GetPartBoundsInBox(hrp.CFrame*CFrame.new(0,0,-3), Vector3.new(10,10,4))) do
+            if hit.Parent:FindFirstChild("Humanoid") then
+                if hit.Parent ~= char and not hits[hit.Parent] and Hitbox == true and not hit.Parent:FindFirstChild('BlockValue') then
+                    print('hit')
+                    hits[hit.Parent] = true
+                    if Info.Highlight == true then
+                        local Light = Instance.new('Highlight', hit.Parent)
+                        Light.FillColor = Color3.fromRGB(255, 255, 255)
+                        Light.DepthMode = Enum.HighlightDepthMode.Occluded
+                        game.Debris:AddItem(Light, 0.3)
+                        
+                        game.TweenService:Create(Light, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0,false), {FillTransparency = 1, OutlineTransparency=1}):Play()
+                    end
+                    local Stunned = Instance.new('IntValue', hit.Parent)
+                    Stunned.Name = 'Stunned'
+                    game.Debris:AddItem(Stunned, 0.5)
+                    local Sound = script.Hit:Clone()
+                    Sound.Parent = hit.Parent.Torso
+                    Sound:Play()
+                    game.Debris:AddItem(Sound, Sound.TimeLength)
+                    local BV = Instance.new('BodyVelocity', hrp)
+                    BV.Velocity = hrp.CFrame.LookVector * 5
+                    BV.MaxForce = Vector3.new(213131,12331231,123213123)
+                    game.Debris:AddItem(BV, 0.3)
+                    if Clique <=3 then
+                        local animator2 = animationModule.new(hit.Parent:FindFirstChildWhichIsA('Humanoid'))
+                        animator2:LoadAnimation(script:FindFirstChild('Hit'..Clique)):Play()
+                        local BV = Instance.new('BodyVelocity', hit.Parent.HumanoidRootPart)
+                        BV.Velocity = hrp.CFrame.LookVector * 5
+                        BV.MaxForce = Vector3.new(213131,12331231,123213123)
+                        game.Debris:AddItem(BV, 0.3)
+                        hit.Parent:FindFirstChildWhichIsA('Humanoid'):TakeDamage(Info.BasicDamage)
+                        pcall(function()
+                            plr.ult.Value +=Info.BasicDamage
+                        end)
+                    else
+                        hit.Parent:FindFirstChildWhichIsA('Humanoid'):TakeDamage(Info.FinalHit)
+                        pcall(function()
+                            plr.ult.Value +=Info.FinalHit
+                        end)
+                        
+                        if Info.FinalHitRagdoll == true then
+                            RagdollModule.Enable(hit.Parent, 3)
+                            local BV = Instance.new('BodyVelocity', hit.Parent.HumanoidRootPart)
+                            BV.Velocity = hrp.CFrame.LookVector * 40
+                            BV.MaxForce = Vector3.new(213131,12331231,123213123)
+                            game.Debris:AddItem(BV, 0.3)
+                        end
+                        
+                        
+                    end
+                end
+            end
+        end
+        spawn(function()
+            task.wait(.2)
+            humanoid.WalkSpeed = DefWalkSpeed
+            Hitbox = false
+        end)
+        if Clique <=3 then
+            task.wait(.3)
+            CanClique = true
+        else
+            task.wait(2)
+            CanClique = true
+            Clique = 0
+        end
+        
+    end
+end)
+ 
+-- Não funciona
+Block.OnServerEvent:Connect(function(plr, BlockingValue)
+    local char = plr.Character
+    local humanoid = char.Humanoid
+    local hrp:BasePart = char.HumanoidRootPart
+    local animator = animationModule.new(humanoid)
+    local Anim = animator:LoadAnimation(script.Blocking)
+    if BlockingValue == true then
+        Anim:Play()
+        print('bloqueano')
+        local Block = Instance.new('BoolValue', plr.Character)
+        Block.Name = 'BlockValue'
+    else
+        print('desbloquano')
+        if char:FindFirstChild('BlockValue') then
+            char.BlockValue:Destroy()
+        end
+        Anim:Stop()
+    end
+    print(BlockingValue)
+    
+end)")</code></pre>
             <button class="copy-btn">Copy Script</button>
         </div>
 
