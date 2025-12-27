@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scripts - MrAwo</title>
+    <title>Scripts - MrAwo69</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -20,37 +20,48 @@
 
     <section class="page-hero">
         <h1>All Roblox Scripts</h1>
-        <p>Free scripts from my videos. Copy-paste and use in your games! New ones added regularly.</p>
+        <p>Free scripts from my videos. Copy and paste directly into Roblox Studio!</p>
     </section>
 
     <section class="scripts-grid">
-        <!-- Add a new card for each script/video -->
+        <!-- Add one card per script/video -->
         <div class="script-card">
-            <h3>Script Title 1 (e.g., Clicking Simulator)</h3>
+            <h3>Script Title Example 1</h3>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" allowfullscreen></iframe>
             </div>
-            <p>Short description from your video...</p>
-            <pre><code>-- Your full script code here
+            <p>Description from your video...</p>
+            <pre><code>-- Paste your full script here
 print("Hello from MrAwo69!")</code></pre>
-            <button onclick="navigator.clipboard.writeText(this.previousElementSibling.querySelector('code').innerText)">Copy Script</button>
+            <button class="copy-btn">Copy Script</button>
         </div>
 
         <div class="script-card">
-            <h3>Script Title 2 (e.g., Glove System)</h3>
+            <h3>Script Title Example 2</h3>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" allowfullscreen></iframe>
             </div>
             <p>Description...</p>
-            <pre><code>-- Paste script here</code></pre>
-            <button onclick="navigator.clipboard.writeText(this.previousElementSibling.querySelector('code').innerText)">Copy Script</button>
+            <pre><code>-- Your script code</code></pre>
+            <button class="copy-btn">Copy Script</button>
         </div>
 
-        <!-- Add more cards as you upload new videos/scripts -->
+        <!-- Add more cards here for new scripts -->
     </section>
 
     <footer>
         <p>© 2025 MrAwo69. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.previousElementSibling.querySelector('code').innerText;
+                navigator.clipboard.writeText(code);
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy Script', 2000);
+            });
+        });
+    </script>
 </body>
 </html>
