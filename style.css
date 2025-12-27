@@ -191,3 +191,32 @@ footer a {
     .hero h1, .about-hero h1 { font-size: 3.5rem; }
     nav a { margin-left: 15px; font-size: 0.9rem; }
 }
+
+/* ==================== NEW: Beautiful Model Links ==================== */
+.script-card a {
+    color: var(--primary-red);
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px 0;
+    padding: 14px 28px;
+    background: rgba(229, 9, 20, 0.15);
+    border: 3px solid var(--primary-red);
+    border-radius: 12px;
+    transition: all 0.4s ease;
+}
+
+.script-card a:hover {
+    background: var(--primary-red);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.5);
+}
+
+/* Cool link icon */
+.script-card a::before {
+    content: "⬇ ";
+    font-size: 1.8rem;
+    vertical-align: middle;
+}
