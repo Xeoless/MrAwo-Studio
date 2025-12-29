@@ -44,14 +44,13 @@
         <p><a href="https://www.youtube.com/@MrAwo69" target="_blank">YouTube Channel @MrAwo69</a></p>
     </footer>
 
-    <!-- Header Scroll Effect -->
     <script>
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
         });
     </script>
 
-    <!-- Full-Page Smartlink Overlay (Invisible – triggers on first click/tap) -->
+    <!-- Full-Page Smartlink Overlay - Adsterra Anti-Adblock -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (!sessionStorage.getItem('smartlinkClicked')) {
@@ -64,20 +63,16 @@
                     e.preventDefault();
                     e.stopPropagation();
 
-                    // Opens your smartlink in a new tab
-                    window.open('https://www.effectivegatecpm.com/y7d4svy86t?key=b98f4496ba00b4cde6a40eb1e7daef50', '_blank');
+                    window.open('https://publishoccur.com/y7d4svy86t?key=b98f4496ba00b4cde6a40eb1e7daef50', '_blank');
 
-                    // Remove overlay after click
                     overlay.remove();
                     document.body.classList.remove('overlay-active');
                     sessionStorage.setItem('smartlinkClicked', 'true');
 
-                    // Clean up listeners
                     document.removeEventListener('click', triggerSmartlink);
                     document.removeEventListener('touchstart', triggerSmartlink);
                 }
 
-                // Works on desktop click and mobile tap
                 document.addEventListener('click', triggerSmartlink);
                 document.addEventListener('touchstart', triggerSmartlink);
             }
